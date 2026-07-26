@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000/predict";
+const API_URL = "https://mental-health-model-predictions-4.onrender.com";
 const form = document.getElementById('intake-form');
 const statusMsg = document.getElementById('status-msg');
 const runBtn = document.getElementById('run-btn');
