@@ -1,7 +1,7 @@
 // ============================================================
 // CONFIG — set this to your deployed FastAPI backend before shipping
 // ============================================================
-const API_URL = "http://127.0.0.1:8000/predict";
+const API_URL = "https://mental-health-model-predictions-6.onrender.com";
 // ============================================================
 
 const clockEl = document.getElementById('clock');
