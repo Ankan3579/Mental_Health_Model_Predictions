@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Signal/Check — Digital Wellbeing Read</title>
+<meta name="description" content="Check your predicted wellbeing charge from today's screen habits." />
+<meta name="theme-color" content="#3B2E7E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="device">
+
+  <div class="statusbar">
+    <span class="clock" id="clock">--:--</span>
+    <span class="link-status">
+      <span class="dot" id="link-dot"></span>
+      <span id="link-text">model · checking</span>
+    </span>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">Student digital wellbeing</div>
+    <div class="brand">Signal<span class="slash">/</span>Check</div>
+    <p class="tagline">Log today's screen habits and vitals. Your predicted wellbeing reads out like a charge level — the same way your phone tells you how it's doing.</p>
+  </div>
+
+  <div class="grid">
+
+    <section class="panel">
+      <h2>Today's habits</h2>
+      <p class="sub">Every field feeds the model directly — nothing here is guessed.</p>
+
+      <form id="intake-form" aria-label="Daily habits form">
+        <div class="field">
+          <label for="age">Age</label>
+          <input type="number" id="age" min="7" max="100" value="20" required />
+        </div>
+
+        <div class="field">
+          <label for="gender">Gender</label>
+          <select id="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="country">Country</label>
+          <input type="text" id="country" placeholder="e.g. India" value="India" required />
+        </div>
+
+        <div class="field">
+          <label for="academic">Academic level</label>
+          <select id="academic" required>
+            <option value="Undergraduate">Undergraduate</option>
+            <option value="Graduate">Graduate</option>
+            <option value="High School">High School</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="platform">Most-used platform</label>
+          <select id="platform" required>
+            <option>Facebook</option>
+            <option>LinkedIn</option>
+            <option selected>Instagram</option>
+            <option>Snapchat</option>
+            <option>Twitter</option>
+            <option>YouTube</option>
+            <option>TikTok</option>
+            <option>LINE</option>
+            <option>KakaoTalk</option>
+            <option>VKontakte</option>
+            <option>WhatsApp</option>
+            <option>WeChat</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="purpose">Main purpose</label>
+          <select id="purpose" required>
+            <option>Networking</option>
+            <option>Education</option>
+            <option selected>Entertainment</option>
+            <option>News</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="usage">Screen time (hrs/day)</label>
+          <input type="number" id="usage" step="0.1" min="0" max="24" value="4.5" required />
+        </div>
+
+        <div class="field">
+          <label for="unlocks">Phone unlocks / day</label>
+          <input type="number" id="unlocks" min="0" value="60" required />
+        </div>
+
+        <div class="field">
+          <label for="study">Study (hrs/day)</label>
+          <input type="number" id="study" step="0.1" min="0" max="24" value="3" required />
+        </div>
+
+        <div class="field">
+          <label for="activity">Activity (hrs/day)</label>
+          <input type="number" id="activity" step="0.1" min="0" max="24" value="1" required />
+        </div>
+
+        <div class="field">
+          <label for="sleep">Sleep (hrs/night)</label>
+          <input type="number" id="sleep" step="0.1" min="0" max="24" value="6.5" required />
+        </div>
+
+        <div class="field">
+          <label for="stress">Stress level</label>
+          <select id="stress" required>
+            <option>Low</option>
+            <option selected>Medium</option>
+            <option>High</option>
+            <option>Very High</option>
+          </select>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="run" id="run-btn">Check my signal</button>
+          <span class="status" id="status-msg" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel readout" aria-label="Wellbeing readout">
+      <h2>Charge level</h2>
+      <p class="sub">Fills once your signal comes back.</p>
+
+      <div class="battery-wrap">
+        <div class="battery" role="img" aria-label="Wellbeing charge indicator">
+          <div class="battery-fill" id="battery-fill"></div>
+        </div>
+
+        <div id="empty-state" class="readout-empty">No signal yet — fill in today's habits and tap <em>Check my signal</em>.</div>
+
+        <div id="result-block" style="display:none;">
+          <div class="battery-readout">
+            <div class="pct"><span id="pct-num">--</span><span class="sign">%</span></div>
+            <div class="pct-label">Wellbeing charge</div>
+          </div>
+          <div class="tier-msg" id="tier-msg"></div>
+        </div>
+      </div>
+
+      <div class="chips" id="chips" style="display:none;">
+        <div class="chip"><span class="label">Screen time</span><span class="val" id="chip-screen">--</span></div>
+        <div class="chip"><span class="label">Sleep</span><span class="val" id="chip-sleep">--</span></div>
+        <div class="chip"><span class="label">Stress</span><span class="val" id="chip-stress">--</span></div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="signature">read again anytime — nothing is saved</div>
+    </section>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
